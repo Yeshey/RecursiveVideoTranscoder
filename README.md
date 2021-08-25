@@ -4,12 +4,15 @@ Command line interface for recursively transcoding videos and replacing them in 
 The script finds all the following video extensions: .kvm .avi .mp4 .flv .ogg .mov .asf, and transcodes them to .mp4 in an efficient way with ffmpeg
 
 # Installation
-Works in unix systems. Requiers ffmpeg installed:
-**ubuntu**: `sudo apt-get update && sudo apt-get install ffmpeg`
-**arch**: `Pacman -Sy ffmpeg`
+Works in unix systems. Requiers curl and ffmpeg installed:
+
+**ubuntu**: `sudo apt-get update && sudo apt-get install ffmpeg && sudo apt-get install curl`
+
+**arch**: `Pacman -Sy ffmpeg && Pacman -Sy curl`
 
 # Usage
 in terminal `cd` to the desiered directory and run 
+
 ```curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh | bash```
 
 # Know Issues:
