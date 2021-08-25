@@ -8,4 +8,4 @@ Works in unix systems. Requiers ffmpeg installed:
 
 # Usage
 in terminal `cd` to the desiered directory and run 
-`curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh | bash`
+```curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh | bash```
