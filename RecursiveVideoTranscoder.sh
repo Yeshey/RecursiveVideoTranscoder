@@ -1,5 +1,7 @@
 #!/bin/bash
-
+echo "This script will recursively search for any videos and transcode them in place to make'em smaller"
+# echo "do you wish to append _f to transcoded videos?, videos that end with _f won't be transcoded"
+# echo "Do you wish to change frame rate?"
 find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -iname '*ogg' -o -iname '*mov' -o -iname '*asf' \) -print |
     while IFS= read file    # IFS= prevents "read" stripping whitespace
         do
