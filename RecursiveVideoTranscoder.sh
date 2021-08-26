@@ -9,7 +9,7 @@
 echo "This script will recursively search for any videos and transcode them in place to make'em smaller"
 # echo "do you wish to append _f to transcoded videos?, videos that end with _f won't be transcoded"
 # echo "Do you wish to change frame rate?"
-find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -iname '*ogg' -o -iname '*mov' -o -iname '*asf' \) -print |
+find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -iname '*ogg' -o -iname '*mov' -o -iname '*asf' -o -iname '*mkv' \) -print |
     while IFS= read file    # IFS= prevents "read" stripping whitespace
         do
             #If it hasn't been transcoded yet (How do I compare two string variables in an 'if' statement in Bash?)

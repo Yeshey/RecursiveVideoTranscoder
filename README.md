@@ -1,7 +1,7 @@
 # RecursiveVideoTranscoder
 Command line interface for recursively transcoding videos and replacing them in place using ffmpeg to make them smaller 
 
-The script finds all the following video extensions: .kvm .avi .mp4 .flv .ogg .mov .asf, and transcodes them to .mp4 in an efficient way with ffmpeg
+The script finds all the following video extensions: .kvm .avi .mp4 .flv .ogg .mov .asf .mkv, and transcodes them to .mp4 in an efficient way with ffmpeg
 
 # Installation
 Works in unix systems. Requiers curl and ffmpeg installed:
