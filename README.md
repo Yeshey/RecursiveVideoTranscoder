@@ -8,16 +8,17 @@ Works in unix systems. Requiers curl and ffmpeg installed:
 
 **ubuntu**: `sudo apt-get update && sudo apt-get install ffmpeg && sudo apt-get install curl`
 
-**arch**: `Pacman -Sy ffmpeg && Pacman -Sy curl`
+**arch**: `sudo pacman -Sy ffmpeg && sudo pacman -Sy curl`
 
 # Usage
 in terminal `cd` to the desiered directory and run 
 
-```curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh | bash```
+```bash <(curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh)```
+CTRL + C to stop the script. Will stop the recoding of the current video and replace it with the old again.
 
 # Know Issues:
-CTRL+C Should be used carefully! To cancell, 2 CTRL+Cs should be inputed in the same second, one for the ffmpeg process and one for the script, 1 CTRL + C will result in loss of data & deleted files are not recoverable
-
-there is only one transcoding command that keeps the video as is, just codificated in a more efficient way. No prompts are made as to how the user wants the process to happen.
-
 It's a very time and CPU consuming process - This is down to ffmpeg.
+
+# Updates log:
+- [Solution found](https://stackoverflow.com/questions/16854041/bash-read-is-being-skipped-when-run-from-curl-pipe) to run script with curl whilst being able to read user input with `read`
+- Fixed CTRL + C halting justs ffmpeg and not whole script, and handling exit appropriately 
