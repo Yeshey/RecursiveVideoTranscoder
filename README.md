@@ -13,8 +13,7 @@ Works in unix systems. Requiers curl and ffmpeg installed:
 # Usage
 in terminal `cd` to the desiered directory and run 
 
-```bash <(curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh)```
-CTRL + C to stop the script. Will stop the recoding of the current video and replace it with the old again.
+```bash <(curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh)``` <br><br> CTRL + C to stop the script. Will stop the recoding of the current video and replace it with the old again.
 
 # Know Issues:
 It's a very time and CPU consuming process - This is down to ffmpeg.
