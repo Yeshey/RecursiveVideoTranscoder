@@ -1,6 +1,5 @@
 #!/bin/bash
 
-trap "terminater" SIGINT
     exit_handler() {
         local old="${1}"
         local file="${2}"
@@ -14,6 +13,7 @@ trap "terminater" SIGINT
         echo " Exiting normally"
         exit  # Exits normally
     }
+trap "terminater" SIGINT
 
 echo "This script will recursively search for any videos and transcode them in place to make'em smaller"
 
@@ -39,8 +39,16 @@ while true; do
 done
 echo "$fpsstr"
 echo "ffmpeg command to be ran:"
-echo "ffmpeg -i "$old" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4""
-exit
+echo "ffmpeg -i \"\$file\" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 \"\$file${name_f}.mp4\""
+
+while true; do
+    read -p "Proceed? y/n: " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
 
 find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -iname '*ogg' -o -iname '*mov' -o -iname '*asf' -o -iname '*mkv' \) -print |
     while IFS= read file    # IFS= prevents "read" stripping whitespace
