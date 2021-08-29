@@ -16,9 +16,10 @@
 trap "terminater" SIGINT
 
 echo "This script will recursively search for any videos and transcode them in place to make'em smaller"
+echo "Videos that end with _f won't be transcoded"
 echo
 while true; do
-    read -p "do you wish to append _f to transcoded videos?, videos that end with _f won't be transcoded y/n: " yn
+    read -p "do you wish to append _f to transcoded videos? y/n: " yn
     case $yn in
         [Yy]* ) name_f="_f"; break;;
         [Nn]* ) name_f=""; break;;
