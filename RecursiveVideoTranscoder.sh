@@ -24,7 +24,20 @@ while true; do
         * ) echo "Please answer yes or no.";;
     esac
 done
-# echo "Do you wish to change frame rate?"
+
+while true; do
+    read -p "Do you wish to change frame rate y/n: " yn
+    case $yn in
+        [Yy]* ) echo "dayum"; 
+                echo "well ok";
+                break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+exit
+
 find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -iname '*ogg' -o -iname '*mov' -o -iname '*asf' -o -iname '*mkv' \) -print |
     while IFS= read file    # IFS= prevents "read" stripping whitespace
         do
@@ -32,7 +45,7 @@ find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -
             then
                 filename=$(basename -- "$file")
                 old="${file%.*}_old_f.${file##*.}"
-                #mv "$file" "$old"  #renaming
+                mv "$file" "$old"  #renaming
                 # < /dev/null to prevent from reading standard input (Strange errors when using ffmpeg in a loop)
                 # -max_muxing_queue_size 1024 needed for certain situations (FFMPEG: Too many packets buffered)
                 < /dev/null ffmpeg -i "$old" -vcodec libx265 -crf 28 -max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
