@@ -10,6 +10,7 @@ trap "terminater" SIGINT
         exit  # gets caught by trap and goes to terminator
     }
     terminater(){
+        echo
         echo " Exiting normally"
         exit  # Exits normally
     }
@@ -28,14 +29,17 @@ done
 while true; do
     read -p "Do you wish to change frame rate y/n: " yn
     case $yn in
-        [Yy]* ) echo "dayum"; 
-                echo "well ok";
+        [Yy]* ) echo "All files will be recoded with the following fps (give a number): "; 
+                read fps;
+                fpsstr="-filter:v fps=${fps} ";
                 break;;
-        [Nn]* ) break;;
+        [Nn]* ) fpsstr=""; break;;
         * ) echo "Please answer yes or no.";;
     esac
 done
-
+echo "$fpsstr"
+echo "ffmpeg command to be ran:"
+echo "ffmpeg -i "$old" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4""
 exit
 
 find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -iname '*ogg' -o -iname '*mov' -o -iname '*asf' -o -iname '*mkv' \) -print |
