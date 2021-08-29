@@ -16,7 +16,7 @@
 trap "terminater" SIGINT
 
 echo "This script will recursively search for any videos and transcode them in place to make'em smaller"
-
+echo
 while true; do
     read -p "do you wish to append _f to transcoded videos?, videos that end with _f won't be transcoded y/n: " yn
     case $yn in
@@ -25,7 +25,7 @@ while true; do
         * ) echo "Please answer yes or no.";;
     esac
 done
-
+echo
 while true; do
     read -p "Do you wish to change frame rate y/n: " yn
     case $yn in
@@ -37,10 +37,10 @@ while true; do
         * ) echo "Please answer yes or no.";;
     esac
 done
-echo "$fpsstr"
+echo
 echo "ffmpeg command to be ran:"
 echo "ffmpeg -i \"\$file\" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 \"\$file${name_f}.mp4\""
-
+echo
 while true; do
     read -p "Proceed? y/n: " yn
     case $yn in
