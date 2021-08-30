@@ -13,7 +13,7 @@
         echo " Exiting normally"
         exit  # Exits normally
     }
-trap "terminater" SIGINT
+trap "terminater" SIGINT SIGTERM
 
 echo "This script will recursively search for any videos and transcode them in place to make'em smaller"
 echo "Videos that end with _f won't be transcoded"
@@ -61,7 +61,7 @@ find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -
                 mv "$file" "$old"  #renaming
                 # < /dev/null to prevent from reading standard input (Strange errors when using ffmpeg in a loop)
                 # -max_muxing_queue_size 1024 needed for certain situations (FFMPEG: Too many packets buffered)
-                < /dev/null ffmpeg -i "$old" -vcodec libx265 -crf 28 -max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
+                < /dev/null ffmpeg -i "$old" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
 
                 mv "${old}" "/tmp/${filename}"
                 echo "file $file transcoded, old moved to /tmp"
