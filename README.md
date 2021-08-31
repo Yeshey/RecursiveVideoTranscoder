@@ -20,6 +20,7 @@ It's a very time and CPU consuming process - This is down to ffmpeg.
 
 # Updates log:
 *newest*
+- Handled "not enough space left on device" exception when running `mv` to /tmp to delete old file instead
 - [Solution found](https://stackoverflow.com/questions/16854041/bash-read-is-being-skipped-when-run-from-curl-pipe) to run script with curl whilst being able to read user input with `read`
 - Fixed CTRL + C halting justs ffmpeg and not whole script, and handling exit appropriately
 
