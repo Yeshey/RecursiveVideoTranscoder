@@ -63,7 +63,8 @@ find . \( -iname '*.kvm' -o -iname '*avi' -o -iname '*mp4' -o -iname '*flv' -o -
                 # -max_muxing_queue_size 1024 needed for certain situations (FFMPEG: Too many packets buffered)
                 < /dev/null ffmpeg -i "$old" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
 
-                mv "${old}" "/tmp/${filename}"
-                echo "file $file transcoded, old moved to /tmp"
+                echo "file $file transcoded, moving old to /tmp..."
+                mv "${old}" "/tmp/${filename}" || 
+                ( echo "mv failed, deleting instead" && rm "${old}" ) || exit
             fi
         done
