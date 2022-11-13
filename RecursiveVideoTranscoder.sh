@@ -15,7 +15,7 @@
     }
 trap "terminater" SIGINT SIGTERM
 
-echo "This script will recursively search for any videos and transcode them in place to make'em smaller"
+echo "This script will recursively search for any videos from the current folder and transcode them in place to make'em smaller"
 echo "Videos that end with _f won't be transcoded"
 echo
 while true; do
