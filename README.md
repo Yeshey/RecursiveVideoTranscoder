@@ -17,6 +17,7 @@ no installation required, in terminal `cd` to the desiered directory and run
 
 # Know Issues:
 - Videos loose subtitles
+- Videos loose chapters
 - It's a very time and CPU consuming process - This is down to ffmpeg.
 
 # Updates log:
