@@ -40,7 +40,7 @@ while true; do
 done
 echo
 echo "ffmpeg command to be ran:"
-echo "ffmpeg -i \"\$file\" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 \"\$file${name_f}.mp4\""
+echo "ffmpeg -i \"\$file\" -map 0 -c:s copy -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 \"\$file${name_f}.mp4\""
 echo
 while true; do
     read -p "Proceed? y/n: " yn
@@ -61,7 +61,7 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                 mv "$file" "$old"  #renaming
                 # < /dev/null to prevent from reading standard input (Strange errors when using ffmpeg in a loop)
                 # -max_muxing_queue_size 1024 needed for certain situations (FFMPEG: Too many packets buffered)
-                < /dev/null ffmpeg -i "$old" -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
+                < /dev/null ffmpeg -i "$old" -map 0 -c:s copy -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
 
                 echo "file $file transcoded, moving old to /tmp..."
                 mv "${old}" "/tmp/${filename}" || 
