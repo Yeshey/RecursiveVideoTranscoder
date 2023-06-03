@@ -27,14 +27,16 @@ while true; do
     esac
 done
 echo
+changefps=false
 while true; do
     read -p "Do you wish to change frame rate y/n: " yn
     case $yn in
         [Yy]* ) echo "All files will be recoded with the following fps (give a number): "; 
                 read fps;
-                fpsstr="-filter:v fps=${fps} ";
+                newfps=$fps
+                changefps=true
                 break;;
-        [Nn]* ) fpsstr=""; break;;
+        [Nn]* ) changefps=""; break;;
         * ) echo "Please answer yes or no.";;
     esac
 done
@@ -60,7 +62,7 @@ while true; do
 done
 echo
 echo "ffmpeg command to be ran:"
-echo "ffmpeg -i \"\$file\" ${scale}-map 0 -c:s copy -vcodec libx265 -crf 28 ${fpsstr}-max_muxing_queue_size 1024 \"\$file${name_f}.mp4\""
+echo "ffmpeg -i \"\$file\" -map 0 -c:s copy -vcodec libx265 -crf 28 ${scale}${changefps:+-filter:v fps=${fps} }-max_muxing_queue_size 1024 \"\$file${name_f}.mp4\""
 echo
 while true; do
     read -p "Proceed? y/n: " yn
@@ -79,6 +81,7 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                 filename=$(basename -- "$file")
                 old="${file%.*}_old_f.${file##*.}"
                 mv "$file" "$old"  # renaming
+                vf=""
 
                 # Run ffprobe and capture the output
                 probe_output=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=s=x:p=0 "$old")
@@ -93,6 +96,9 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                 frame_rate_num=$(printf "%.0f" "$frame_rate_num")
                 # Print the updated frame rate value
                 echo "Frame Rate: $frame_rate_num"
+
+                # Initialize linearfilters as an empty string
+                linearfilters=""
 
                 # Check if the scale is empty
                 if [[ -n "$scale" ]]; then
@@ -114,12 +120,41 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                         echo "New Width: $newWidth"
                         echo "New Height: $newHeight"
                     done
+
+                    if [ -z "$linearfilters" ]; then
+                        # linear filters empty
+                        linearfilters="${scale}"
+                    else
+                        # linear filters not empty
+                        linearfilter="${linearfilter},${scale}"
+                    fi
                 fi
-                
+
+                # Check if the changefps is true
+                if [[ "$changefps" = true ]]; then
+                    # changefps not empty
+                    # Only change fps if they'll be lesser than the original, never increase fps
+                    if ((frame_rate_num > fps)); then
+                        # Frame rate needs to be changed
+                        changefps="fps=${newfps}";
+
+                        vf="-vf";
+                        if [ -z "$linearfilters" ]; then
+                            # linear filters empty
+                            linearfilters="$changefps";
+                        else
+                            # linear filters not empty
+                            linearfilters+=",";
+                            linearfilters+="$changefps";
+                        fi
+                    # else frame rate doesn't need to be changed
+                    fi
+                fi
+
                 # < /dev/null to prevent from reading standard input (Strange errors when using ffmpeg in a loop)
                 # -max_muxing_queue_size 1024 needed for certain situations (FFMPEG: Too many packets buffered)
                 # -map 0 -c:s copy to copy metadata, keeping audio tracks, subtitles and chapters
-                < /dev/null ffmpeg -i "$old" -map 0 -c:s copy -vcodec libx265 -crf 28 ${vf} ${scale} ${fpsstr}-max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
+                < /dev/null ffmpeg -i "$old" -map 0 -c:s copy -vcodec libx265 -crf 28 ${vf} "${linearfilters}" -max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
 
                 echo "file $file transcoded, moving old to /tmp..."
                 mv "${old}" "/tmp/${filename}" || 
