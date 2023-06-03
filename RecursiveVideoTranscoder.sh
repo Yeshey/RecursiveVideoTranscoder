@@ -104,7 +104,7 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                 if [[ -n "$scale" ]]; then
                     # Scale not empty
                     vf="-vf"
-                    scale="scale='if(gt(iw,$newWidth),$newWidth,iw)':-1"
+                    scale="scale='if(gt(iw,$newWidth),$newWidth,iw)':-4" # -4 bc https://ffmpeg.org/pipermail/ffmpeg-user/2015-July/027727.html
 
                     # Calculate the new height based on the new width and the aspect ratio of the old video to see if it is divisible by 2
                     newHeight=$(($newWidth * $height / $width))
@@ -115,7 +115,7 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                         # Recalculate the new height
                         newHeight=$(($newWidth * $height / $width))
 
-                        scale="scale='if(gt(iw,$newWidth),$newWidth,iw)':-1"
+                        scale="scale='if(gt(iw,$newWidth),$newWidth,iw)':-4"
                         # Print the new width and height values
                         echo "New Width: $newWidth"
                         echo "New Height: $newHeight"
