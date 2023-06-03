@@ -134,18 +134,17 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                 if [[ "$changefps" = true ]]; then
                     # changefps not empty
                     # Only change fps if they'll be lesser than the original, never increase fps
-                    if ((frame_rate_num > fps)); then
+                    if (($frame_rate_num > $fps)); then
                         # Frame rate needs to be changed
-                        changefps="fps=${newfps}";
+                        fpsoption="fps=${newfps}";
 
                         vf="-vf";
                         if [ -z "$linearfilters" ]; then
                             # linear filters empty
-                            linearfilters="$changefps";
+                            linearfilters="$fpsoption";
                         else
                             # linear filters not empty
-                            linearfilters+=",";
-                            linearfilters+="$changefps";
+                            linearfilters+=",$fpsoption";
                         fi
                     # else frame rate doesn't need to be changed
                     fi
