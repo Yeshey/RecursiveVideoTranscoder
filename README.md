@@ -22,6 +22,7 @@ no installation required, in terminal `cd` to the desiered directory and run
 
 # Updates log:
 *newest*
+- Added option to alter resolution too now, and it won''t allow videos to increase resolution or fps
 - Videos don't loose audio and subtitle tracks and chapters anymore.
 - Handled "not enough space left on device" exception when running `mv` to /tmp to delete old file instead
 - [Solution found](https://stackoverflow.com/questions/16854041/bash-read-is-being-skipped-when-run-from-curl-pipe) to run script with curl whilst being able to read user input with `read`
