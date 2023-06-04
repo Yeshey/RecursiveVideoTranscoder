@@ -31,7 +31,7 @@ changefps=false
 while true; do
     read -p "Do you wish to change frame rate y/n: " yn
     case $yn in
-        [Yy]* ) echo "All files will be recoded with the following fps (give a number): "; 
+        [Yy]* ) echo "All files will be recoded with the following fps unless they already have a lower fps than the given (give a number): "; 
                 read fps;
                 newfps=$fps
                 changefps=true
