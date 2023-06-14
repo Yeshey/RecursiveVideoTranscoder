@@ -153,7 +153,7 @@ find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -
                 # < /dev/null to prevent from reading standard input (Strange errors when using ffmpeg in a loop)
                 # -max_muxing_queue_size 1024 needed for certain situations (FFMPEG: Too many packets buffered)
                 # -map 0 -c:s copy to copy metadata, keeping audio tracks, subtitles and chapters
-                < /dev/null ffmpeg -i "$old" -map 0 -c:s copy -vcodec libx265 -crf 28 ${vf} "${linearfilters}" -max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
+                < /dev/null ffmpeg -i "$old" -map 0 -c:s copy -vcodec libx265 -crf 28 ${vf} ${linearfilters} -max_muxing_queue_size 1024 "${file%.*}${name_f}.mp4" || exit_handler "$old" "$file"
 
                 echo "file $file transcoded, moving old to /tmp..."
                 mv "${old}" "/tmp/${filename}" || 
