@@ -73,7 +73,7 @@ while true; do
     esac
 done
 
-find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -o -iname '*.webm' -o -iname '*.ogg' -o -iname '*.mov' -o -iname '*.asf' -o -iname '*.mkv' \) -print |
+find . \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.wmv' -o -iname '*.flv' -o -iname '*.webm' -o -iname '*.ogg' -o -iname '*.mov' -o -iname '*.asf' -o -iname '*.mkv' \) -print |
     while IFS= read file    # IFS= prevents "read" stripping whitespace
         do
             if [[ "$file" != *"_f."* ]]
