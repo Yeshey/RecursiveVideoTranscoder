@@ -20,6 +20,7 @@ It's good practice to run this command on the folder you're gonna use the script
 If there is any output, the script will error and halt on those videos, you should check if those videos are playable and if they are please file an issue.
 
 # Know Issues:
+- if the new file name it is converting to exists it will panic and might delete the existing file
 - Trips out and stops if there is a folder that ends in one of the extensions
 - Doesn't have option to diminuish bit-rate or resolution.
 - Some players might have trouble with the way it's encoded.
