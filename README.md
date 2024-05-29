@@ -1,7 +1,7 @@
 # RecursiveVideoTranscoder
 Command line interface for recursively transcoding videos and replacing them in place using ffmpeg to make them smaller, recoding thhem with the H265 codec.
 
-The script finds all the following video extensions: .kvm .avi .mp4 .flv .ogg .mov .asf .mkv, and transcodes them to .mp4 in an efficient way with ffmpeg
+The script finds all the following video extensions: .kvm .avi .mp4 .flv .ogg .mov .asf .mkv .wmv, and transcodes them to .mp4 in an efficient way with ffmpeg
 
 # Dependencies
 Works in unix systems. Requiers curl and ffmpeg installed:
@@ -16,7 +16,7 @@ no installation required, in terminal `cd` to the desiered directory and run
 ```bash <(curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh)``` <br><br> CTRL + C to stop the script. Will stop the recoding of the current video and replace it with the old again.
 
 It's good practice to run this command on the folder you're gonna use the script in:  
-`find /path/to/directory \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -o -iname '*.webm' -o -iname '*.ogg' -o -iname '*.mov' -o -iname '*.asf' -o -iname '*.mkv' \) -type f -exec sh -c 'ffprobe "$1" >/dev/null 2>&1 || echo "$1"' _ {} \;`  
+`find /path/to/directory \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -o -iname '*.mp4' -o -iname '*.webm' -o -iname '*.ogg' -o -iname '*.mov' -o -iname '*.asf' -o -iname '*.mkv' \) -type f -exec sh -c 'ffprobe "$1" >/dev/null 2>&1 || echo "$1"' _ {} \;`  
 If there is any output, the script will error and halt on those videos, you should check if those videos are playable and if they are please file an issue.
 
 # Know Issues:
