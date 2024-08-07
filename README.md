@@ -15,6 +15,13 @@ no installation required, in terminal `cd` to the desiered directory and run
 
 ```bash <(curl -s https://raw.githubusercontent.com/Yeshey/RecursiveVideoTranscoder/main/RecursiveVideoTranscoder.sh)``` <br><br> CTRL + C to stop the script. Will stop the recoding of the current video and replace it with the old again.
 
+Here is a clip showing the tool at 2 times speed:
+
+
+
+https://github.com/user-attachments/assets/515be5f7-c450-4d48-aa54-30c194bc5eb8
+
+
 It's good practice to run this command on the folder you're gonna use the script in:  
 `find /path/to/directory \( -iname '*.kvm' -o -iname '*.avi' -o -iname '*.mp4' -o -iname '*.flv' -o -iname '*.mp4' -o -iname '*.webm' -o -iname '*.ogg' -o -iname '*.mov' -o -iname '*.asf' -o -iname '*.mkv' \) -type f -exec sh -c 'ffprobe "$1" >/dev/null 2>&1 || echo "$1"' _ {} \;`  
 If there is any output, the script will error and halt on those videos, you should check if those videos are playable and if they are please file an issue.
